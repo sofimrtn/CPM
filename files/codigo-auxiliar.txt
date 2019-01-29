@@ -1,0 +1,91 @@
+//Leer fichero
+
+import java.io.*;
+
+
+void leerFichero() {
+    String nombreFichero = ".....";
+    String linea="";
+    try {
+      BufferedReader fichero = new BufferedReader(new FileReader(nombreFichero));
+
+      //Mientras quede información
+      while (fichero.ready()) {
+        linea = fichero.readLine();
+        String[] trozos = linea.split(";");
+        ....
+      }
+      fichero.close();
+    }
+    catch (FileNotFoundException fnfe){
+        System.out.println("El archivo no se ha encontrado.");
+    }
+    catch(IOException ioe){
+        new RuntimeException("Error de entrada/salida.");
+    }
+ }
+
+//Mostrar el diálogo
+
+ClaseDialogo dialogo = new ClaseDialogo();
+dialogo.setLocationRelativeTo(null);
+dialogo.setModal(true);
+dialogo.setVisible(true);
+
+
+//Cargar la ayuda
+
+import javax.help.*;
+import java.net.*;
+
+
+void cargaAyuda(){
+
+   URL hsURL;
+   HelpSet hs;
+
+    try {
+	    	File fichero = new File("help/ayuda.hs");
+	    	hsURL = fichero.toURI().toURL();
+	        hs = new HelpSet(null, hsURL);
+	 }
+
+    catch(Exception e){
+      		System.out.println("Ayuda no encontrada");
+      		return;
+        }
+
+   HelpBroker hb = hs.createHelpBroker();
+
+   hb.enableHelpKey(getRootPane(),"html_inicio", hs);
+   hb.enableHelpOnButton(componente, "html_inicio", hs);
+   
+ }
+
+//Cambiar el aspecto de la fila seleccionada en una tabla con Substance
+package igu;
+
+import java.awt.*;
+import javax.swing.JTable;
+
+import org.jvnet.substance.api.renderers.SubstanceDefaultTableCellRenderer;
+
+public class RendererSubstance extends SubstanceDefaultTableCellRenderer{
+
+	private static final long serialVersionUID = 1L;
+
+	    @Override
+	    public Component getTableCellRendererComponent(JTable table, Object value,
+	            boolean isSelected, boolean hasFocus, int row, int column) {
+	
+	       super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+	       this.setFont(new Font("Dialog", Font.PLAIN, 14));
+	        if (table.getSelectedRow()==row)
+		      {
+	        	this.setForeground(Color.red);
+	        	this.setFont(new java.awt.Font("Dialog", Font.BOLD, 14));
+		      }
+	        
+	        return this;
+	    }
+}
